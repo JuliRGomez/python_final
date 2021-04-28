@@ -4,7 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet
 from django.contrib.auth.models import User
-from users.serializers import UsersSerializer
+from users.serializers import UsersSerializer, CreateUsersAdminSerializer
 from rest_framework.response import Response
 
 
@@ -24,3 +24,13 @@ class UsersViewSet(ModelViewSet):
             status=status.HTTP_200_OK,
             data='hola mundo'
         )
+
+
+class UsersAdminView(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UsersSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return CreateUsersAdminSerializer
+        return UsersSerializer
