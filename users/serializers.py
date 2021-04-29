@@ -30,7 +30,7 @@ class CreateUsersAdminSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = 'username,first_name,last_name,email,password,is_staff'
+        fields = ('username', 'first_name', 'last_name', 'email', 'password')
 
     def create(self, validated_data):
         user = User(
