@@ -31,6 +31,6 @@ class UsersAdminView(ModelViewSet):
     serializer_class = UsersSerializer
 
     def get_serializer_class(self):
-        if self.request.method == 'POST':
+        if self.action == 'create':
             return CreateUsersAdminSerializer
         return UsersSerializer
