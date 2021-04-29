@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from newsletters.models import Newsletters
+
+admin.site.register(Newsletters)
