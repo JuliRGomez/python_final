@@ -4,7 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.viewsets import ModelViewSet
 from django.contrib.auth.models import User
-from users.serializers import UsersSerializer, CreateUsersAdminSerializer
+from users.serializers import UsersSerializer, CreateUsersAdminSerializer, CreateUsersSerializer
 from rest_framework.response import Response
 from django.core.mail import send_mail
 
@@ -12,6 +12,11 @@ from django.core.mail import send_mail
 class UsersViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UsersSerializer
+
+    def get_serializer_class(self, *args, **kwargs):
+        if self.action == 'create':
+            return CreateUsersSerializer
+        return UsersSerializer
 
     def get_permissions(self):
         if self.request.method == 'POST':
