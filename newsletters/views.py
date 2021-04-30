@@ -24,14 +24,3 @@ class NewsletterViewSet(ModelViewSet):
             datos = self.queryset.filter(tag__icontains=tag)
             return datos
         return self.queryset
-
-    """
-    if request.method == 'POST':
-        users_id = request.data['users']
-        for user_id in users_id:
-            user = User.objects.get(id=user_id)
-            Newsletters.users.add(user)
-        return Response(
-            status=status.HTTP_200_OK
-        )
-"""

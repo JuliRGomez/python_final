@@ -13,5 +13,6 @@ class TestTags(APITestCase):
         )
 
     def test_get_tag(self):
-        response = self.client.get(f'{self.host}/tags/')
+        response = self.client.get(f'{self.host}tags/')
         self.assertEqual(response.status_code, 200)
+        print(response.data)
