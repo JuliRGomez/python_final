@@ -22,7 +22,7 @@ from django.conf.urls import url
 from rest_framework_swagger.views import get_swagger_view
 from rest_framework.response import Response
 from rest_framework_swagger import renderers
-from rest_framework.schemas import SchemaGenerator
+from rest_framework.schemsas import SchemaGenerator
 
 
 schema_view = get_swagger_view(title='Newsletter API')
