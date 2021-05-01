@@ -15,9 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.permissions import AllowAny
+from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf.urls import url
 from rest_framework_swagger.views import get_swagger_view
+from rest_framework.response import Response
+from rest_framework_swagger import renderers
+from rest_framework.schemas import SchemaGenerator
+
 
 schema_view = get_swagger_view(title='Newsletter API')
 
@@ -31,6 +37,7 @@ urlpatterns = [
     path('', include('newsletters.urls')),
     path('', include('subscriptions.urls')),
     path('', include('votes.urls')),
-    url(r'^$', schema_view)
+    url(r'^$api', schema_view),
+
 
 ]
