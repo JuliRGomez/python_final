@@ -13,5 +13,5 @@ class Newsletters(models.Model):
     votes = models.IntegerField()
     create_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, related_name='user_newsletter', on_delete=models.SET_NULL, null=True)
-    members = models.ManyToManyField(User, related_name='members_user')
+    members = models.ManyToManyField(User, related_name='members_user', blank=True)
     tags = models.ManyToManyField(Tags)
