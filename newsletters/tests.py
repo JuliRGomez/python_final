@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework.test import APITestCase
 
+
 from newsletters.models import Newsletters
 from tags.models import Tags
 
@@ -35,7 +36,7 @@ class TestNewletter(APITestCase):
         self.newletter.tags.add(1)
 
     def test_get_newsletter(self):
-        response = self.client.get(f'{self.host}/newsletters/')
+        response = self.client.get(f'{self.host}/newsletter/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
 
@@ -52,7 +53,7 @@ class TestNewletter(APITestCase):
             'members': [1],
             'tags': [1]
         }
-        response = self.client.post(f'{self.host}/newsletters/', data)
+        response = self.client.post(f'{self.host}/newsletter/', data)
         self.assertEqual(response.status_code, 201)
         self.assertEqual(Newsletters.objects.all().count(), 2)
 
@@ -69,11 +70,11 @@ class TestNewletter(APITestCase):
             'members': [1],
             'tags': [1]
         }
-        response = self.client.put(f'{self.host}/newsletters/1/', data)
+        response = self.client.put(f'{self.host}/newsletter/1/', data)
         self.assertEqual(response.status_code, 200, response.data)
 
     def test_delete_newsletter(self):
 
-        response = self.client.delete(f'{self.host}/newsletters/1/')
+        response = self.client.delete(f'{self.host}/newsletter/1/')
         self.assertEqual(response.status_code, 204)
         self.assertEqual(Newsletters.objects.all().count(), 0)

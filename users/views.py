@@ -58,7 +58,7 @@ class UsersAdminView(ModelViewSet):
         email = request.data.get('email')
         token = str(request.auth)
         if email:
-            send_email_invitation.apply_async(args=(email, token))
+            send_email_invitation.apply_async(args=[email, token])
             return Response(
                 status=status.HTTP_200_OK,
                 data={"message": "Invitation sent"}

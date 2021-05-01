@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'newsletters.apps.NewslettersConfig',
     'users.apps.UsersConfig',
     'subscriptions.apps.SubscriptionsConfig',
-    'votes.apps.VotesConfig'
+    'votes.apps.VotesConfig',
+    'rest_framework',
+    'rest_framework_swagger',
+    'django_celery_results',
 
 ]
 
@@ -171,3 +174,12 @@ EMAIL_HOST_PASSWORD = '96cbb0a4b4fe62'
 EMAIL_PORT = '2525'
 
 CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+CELERY_RESULT_BACKEND = 'django-db'
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'basic'
+        }
+    },
+}
