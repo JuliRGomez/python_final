@@ -169,3 +169,5 @@ EMAIL_HOST = 'smtp.mailtrap.io'
 EMAIL_HOST_USER = 'ee84d919cbdbdc'
 EMAIL_HOST_PASSWORD = '96cbb0a4b4fe62'
 EMAIL_PORT = '2525'
+
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'

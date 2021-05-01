@@ -7,6 +7,18 @@ from django.contrib.auth.models import User
 from users.serializers import UsersSerializer, CreateUsersAdminSerializer, CreateUsersSerializer
 from rest_framework.response import Response
 from django.core.mail import send_mail
+from newsletters_api.celery import app
+
+
+@app.task(name='send_email_invitation')
+def send_email_invitation(email, token):
+    send_mail(
+        'Admin Invitation',  # subject
+        f'Please sing Up in the next URL:http://127.0.0.1:8000/register?token={token} ',  # body
+        'info@newsletter.com',  # from
+        [email],  # to
+        fail_silently=False,
+    )
 
 
 class UsersViewSet(ModelViewSet):
@@ -44,15 +56,15 @@ class UsersAdminView(ModelViewSet):
     @action(methods=['POST'], detail=False)
     def invitation(self, request):
         email = request.data.get('email')
+        token = str(request.auth)
         if email:
-            send_mail(
-                'Admin Invitation',  # subject
-                f'Please sing Up in the next URL:http://127.0.0.1:8000/register?token={request.auth} ',  # body
-                'info@newsletter.com',  # from
-                [email],  # to
-                fail_silently=False,
+            send_email_invitation.apply_async(args=(email, token))
+            return Response(
+                status=status.HTTP_200_OK,
+                data={"message": "Invitation sent"}
             )
         return Response(
-            status=status.HTTP_200_OK,
-            data={"message": "Invitation sent"}
+            status=status.HTTP_400_BAD_REQUEST,
+            data={"message": "email is required"}
         )
+
