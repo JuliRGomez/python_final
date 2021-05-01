@@ -27,3 +27,29 @@ class NewsletterViewSet(ModelViewSet):
             data = self.queryset.filter(tags__name=tag)  # __icontains
             return data
         return self.queryset
+
+    @action(methods=['POST'], detail=False)
+    def member(self, request):
+        newsletter = request.data.get('newsletter')
+        members = request.data.get('members')
+        newsletter_to_update = Newsletters.objects.get(id=newsletter)
+        for element in members:
+            newsletter_to_update.members.add(element)
+        newsletter_to_update.save()
+        serialized = NewsletterSerializer(newsletter_to_update)
+        return Response(
+            status=status.HTTP_200_OK,
+            data=serialized.data
+        )
+
+    @action(methods=['GET'], detail=False)
+    def owns(self, request):
+        id_user = request.user.id
+        newsletters = Newsletters.objects.filter(user_id=id_user)
+        serialized = NewsletterSerializer(newsletters, many=True)
+        return Response(
+                status=status.HTTP_200_OK,
+                data=serialized.data
+            )
+
+

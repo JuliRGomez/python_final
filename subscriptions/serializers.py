@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 from newsletters.serializers import NewsletterSerializer
 from subscriptions.models import Subscriptions
-from users.serializers import UsersSerializer
+from users.serializers import UsersSerializer, UserEmailSerializer
 
 
 class SubscriptionSerializer(ModelSerializer):
@@ -25,3 +25,12 @@ class GetSubscriptionsUserSerializer(ModelSerializer):
     class Meta:
         model = Subscriptions
         fields = '__all__'
+
+
+class SubscriptionNotifactionSerializer(ModelSerializer):
+    user = UserEmailSerializer()
+
+    class Meta:
+        model = Subscriptions
+        fields = '__all__'
+

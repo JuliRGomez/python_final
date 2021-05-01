@@ -5,7 +5,7 @@ from newsletters.models import Newsletters
 class NewsletterSerializer(ModelSerializer):
     class Meta:
         model = Newsletters
-        fields = ('id', 'name', 'description', 'image', 'votes', 'target', 'tags')
+        fields = ('id', 'name', 'description', 'image', 'votes', 'target', 'tags','members')
 
 
 class CreateNewsletterSerializer(ModelSerializer):

@@ -6,7 +6,7 @@ from rest_framework.viewsets import ModelViewSet
 from newsletters.models import Newsletters
 from subscriptions.models import Subscriptions
 from subscriptions.serializers import SubscriptionSerializer, CreateSubscriptionSerializer, \
-    GetSubscriptionsUserSerializer
+    GetSubscriptionsUserSerializer, SubscriptionNotifactionSerializer
 from rest_framework.response import Response
 
 
@@ -78,7 +78,7 @@ class SubscriptionViewSet(ModelViewSet):
     def user(self, request):
         id_user = request.user.id
         data = Subscriptions.objects.filter(user_id=id_user)
-        serialized = GetSubscriptionsUserSerializer(data, many=True)
+        serialized = SubscriptionNotifactionSerializer(data, many=True)
         return Response(
             status=status.HTTP_200_OK,
             data=serialized.data
