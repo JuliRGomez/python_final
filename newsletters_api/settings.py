@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_swagger',
     'django_celery_results',
+    'drf_yasg2',
 
 ]
 
@@ -184,5 +185,4 @@ SWAGGER_SETTINGS = {
     },
 }
 
-LOGIN_URL = 'rest_framework:login'
-LOGOUT_URL = 'rest_framework:logout'
+
